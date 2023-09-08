@@ -1,12 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './institute/Main'
-import List from './institute/List'
-import './index.css'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import Main from './institute/Main';
+import List from './institute/List';
+import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-    <List />
-  </React.StrictMode>,
-)
+const App = () => {
+  const [result, setResult] = useState([]);
+  const [queried, setQueried] = useState(false)
+
+  return (
+    <React.StrictMode>
+      <Main setResult={setResult} queried={queried}/>
+      <List result={result} setQueried={setQueried} queried={queried}/>
+    </React.StrictMode>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);

@@ -1,5 +1,6 @@
 button {
     transition: 0.1s;
+    cursor: pointer;
 }
 
 .main_container {
@@ -27,6 +28,7 @@ button {
 .addModal {
     position: absolute;
     width: 40vw;
+    min-width: 450px;
     height: 50vh;
     background-color: rgb(32, 32, 32);
     left: 50%;
@@ -193,17 +195,17 @@ h2 {
     margin-inline: 5px;
     width: 40px;
     height: 40px;
-    color: purple;
-    background-color: rgb(253, 125, 253);
-    border: 2px solid purple;
+    color: rgb(109, 128, 0);
+    background-color: rgb(253, 234, 125);
+    border: 2px solid rgb(109, 128, 0);
     border-radius: 5px;
 }
 
 .pagControllers > *:hover {
-    background-color: purple;
-    color: rgb(253, 125, 253);
+    background-color: rgb(109, 128, 0);
+    color: rgb(148, 156, 25);
 }
 
 .pagControllers > *:active {
-    background-color: rgba(128,0,128,0.5);
+    background-color: rgba(109,128,0,0.5);
 }

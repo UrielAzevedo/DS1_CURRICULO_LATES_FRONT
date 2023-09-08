@@ -67,7 +67,7 @@ input:focus {
     width: 90px;
     height: auto;
     top: 50px;
-
+    z-index: 99;
 }
 
 .drop_down > * {
@@ -78,4 +78,20 @@ input:focus {
 .drop_down > *:hover {
     background-color: white;
     color: black;
+}
+
+.buscar_btn{
+    /* color: green; */
+    border: 3px solid rgb(0, 196, 0);
+    background-color: transparent;
+    color: white;
+    font-size: 2rem;
+    margin-top: 15px;
+    border: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+}
+
+.buscar_btn:hover {
+    text-shadow: 0 0 5px white;
+    cursor: pointer;
 }
