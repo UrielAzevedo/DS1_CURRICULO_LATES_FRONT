@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import Main from './institute/Main';
 import List from './institute/List';
 import PesquisadorPage from './pesquisador/PesquisadorPage'
+import NavBar from './NavBar';
+// import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 
 const App = () => {
@@ -11,9 +13,10 @@ const App = () => {
 
   return (
     <React.StrictMode>
+      <NavBar />
       {/* <Main setResult={setResult} queried={queried}/>
       <List result={result} setQueried={setQueried} queried={queried}/> */}
-      <PesquisadorPage/>
+      {/* <PesquisadorPage/> */}
     </React.StrictMode>
   );
 }

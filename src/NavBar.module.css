@@ -1,8 +1,43 @@
 .container{
+    position: relative;
     width: 100vw;
-    height: 15vh;
+    height: 3vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.routesList {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(107, 106, 106);
+    text-decoration:  none;
+    text-transform: uppercase;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+}
+
+.routesList > *:hover {
+    border-bottom: solid 1px white;
+}
+
+.routesList > * {
+    text-decoration:  none;
+    margin-inline: 10px;
+}
+
+.routesList * {
+    transition: 0.2s;
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.routesList *:visited{
+    color: white;
 }
 

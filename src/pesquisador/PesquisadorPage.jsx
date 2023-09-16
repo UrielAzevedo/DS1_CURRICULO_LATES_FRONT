@@ -1,7 +1,6 @@
 import List from './List'
 import Main from './Main'
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 
 const PesquisadorPage = () => {
 
