@@ -57,6 +57,8 @@ const Main = (props) => {
           placeholder="Termo a pesquisar..."
         />
         <span className={styles.txt_field}>Campo</span>
+
+        {/* DROP DOWN */}
         <div className={styles.drop_down_container}>
           <span
             id={styles["todos"]}
@@ -73,6 +75,11 @@ const Main = (props) => {
             </div>
           )}
         </div>
+        {/* DROP DO{styles.buscar_btn} onClick={search}>
+          🔍︎
+        </button>
+      </div>WN */}
+
         <button className={styles.buscar_btn} onClick={search}>
           🔍︎
         </button>

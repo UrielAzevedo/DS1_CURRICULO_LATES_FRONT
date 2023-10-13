@@ -1,9 +1,10 @@
 // import { Link, Route, Routes, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
 // import Switch from "react-router-dom"
-import Pesquisador from './pesquisador/PesquisadorPage'
+import Instituto from './instituto/InstitutoPage'
 import { RouterProvider, Route, Outlet, BrowserRouter, createBrowserRouter, createRoutesFromElements, Link} from "react-router-dom";
-import styles from './NavBar.module.css' 
-import Test from './Test';
+import styles from './NavBar.module.css'
+// import Test from './Test';
+import PesquisadorPage from './pesquisador/PesquisadorPage'
 
 const NavBar = () => {
 
@@ -11,8 +12,8 @@ const NavBar = () => {
         createRoutesFromElements(
             // <BrowserRouter>
                 <Route path="/" element={<Root />}>
-                    <Route index element={<Pesquisador />} />
-                    <Route path ="test" element={<Test />}/>
+                    <Route index element={<Instituto />} />
+                    <Route path ="test" element={<PesquisadorPage />}/>
                 </Route>
             // </BrowserRouter>
         )

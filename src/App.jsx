@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import Main from './institute/Main';
-import List from './institute/List';
-import PesquisadorPage from './pesquisador/PesquisadorPage'
+// import Main from './pesquisador/Main';
+// import List from './pesquisador/List';
+// import PesquisadorPage from './instituto/InstitutoPage'
 import NavBar from './NavBar';
 // import { BrowserRouter } from 'react-router-dom';
 import './index.css';
