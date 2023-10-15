@@ -1,20 +1,21 @@
 import { useState, useRef } from "react"
 import styles from "./List.module.css"
 import pesquisadores from './pesquisadores.json'
+import pesquisadoresObras from './pesquisador_obras.json'
 // const pesquisadores = require('pesquisadores.json')
 
 // import { useState, useRef } from "react"
 
 const List = ({ result, setQueried, queried }) => {
-    console.log(pesquisadores)
+    // console.log(pesquisadores)
     // const pesquisadores = require('pesquisadores.json')
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
     const [toUpdateNome, setToUpdateNome] = useState("")
     const [toUpdateAcr, setToUpdateAcr] = useState("")
     const [toUpdateNewNome, setToUpdateNewNome] = useState("")
-    const [toAddNome, setToAddNome] = useState("")
-    const [toAddAcr, setToAddAcr] = useState("")
+    const [toAddId, setToAddId] = useState("")
+    const [toAddInstituto, setToAddInstituto] = useState("")
     const [toAdd, setToAdd] = useState("")
   
     const updateNameRef = useRef([])
@@ -26,13 +27,44 @@ const List = ({ result, setQueried, queried }) => {
       setIsUpdateModalOpen(false)
     }
     
-    const handleAddNewClick = () => {
-      fetch(
-        `http://localhost:8080/api/v1/institutos/post?nome=${toAddNome}&acronimo=${toAddAcr}`,
-        {
-          method: "POST",
-        }
-      ).then(() => changeQueried())
+    const handleAddNewClick = async () => {
+
+      //getting researcher name
+
+      const pesquisador = pesquisadores.find(p => p.idXml == toAddId)
+
+      if (pesquisador === undefined) return
+
+      //check if valid institute
+
+      const response = await fetch(`http://localhost:8080/api/v1/institutos/institutoNome?nome=${toAddInstituto}`)
+
+      const data = await response.json()
+
+      if(data.length == 0) return
+
+      console.log(pesquisadoresObras[0]['artigos'])
+
+
+
+      // const data = await response.json()
+      // console.log(data)
+      
+      // .then(response => {
+        
+      //   if(response.status == 200){
+      //     console.log(response.json())
+      //   }
+      
+      
+      // })
+
+      // fetch(
+      //   `http://localhost:8080/api/v1/pesquisador/post?id=${toAddId}&instituto=${toAddInstituto}`,
+      //   {
+      //     method: "POST",
+      //   }
+      // ).then(() => changeQueried())
       // isModalOpen = !isModalOpen
     }
   
@@ -43,7 +75,7 @@ const List = ({ result, setQueried, queried }) => {
           method: "PUT",
         }
       )
-      .then(response => console.log(response))
+      // .then(response => console.log(response))
       .then(() => changeQueried())
     }
   
@@ -51,12 +83,12 @@ const List = ({ result, setQueried, queried }) => {
       fetch(`http://localhost:8080/api/v1/institutos/delete?nome=${e.innerText}`, {
         method: "DELETE",
       })
-      .then(response => console.log(response))
+      // .then(response => console.log(response))
       .then(() => changeQueried())
     }
   
     const handleUpdateModalOpen = (i) => {
-      console.log(updateNameRef)
+      // console.log(updateNameRef)
       setToUpdateNome(updateNameRef.current[i].innerText)
       setToUpdateNewNome(updateNameRef.current[i].innerText)
       setToUpdateAcr(updateAcrRef.current[i].innerText)
@@ -76,23 +108,23 @@ const List = ({ result, setQueried, queried }) => {
               </button>
               <div className={styles.interiorAddModalContainer}>
                 <span>
-                  <label htmlFor="name">Nome</label>
+                  <label htmlFor="id">Informe o ID</label>
                   <input
                     type="text"
                     className={styles.newName}
-                    placeholder="Nome a adicionar..."
-                    value={toAddNome}
-                    onChange={(e) => setToAddNome(e.target.value.trim())}
+                    placeholder="ID"
+                    value={toAddId}
+                    onChange={(e) => setToAddId(e.target.value.trim())}
                   />
                 </span>
                 <span>
-                  <label htmlFor="abv">Acrônimo</label>
+                  <label htmlFor="instituto">Instituto</label>
                   <input
                     type="text"
                     className={styles.newAbv}
                     placeholder="Abreviação a adicionar..."
-                    value={toAddAcr}
-                    onChange={(e) => setToAddAcr(e.target.value.trim())}
+                    value={toAddInstituto}
+                    onChange={(e) => setToAddInstituto(e.target.value.trim())}
                   />
                 </span>
                 <span>

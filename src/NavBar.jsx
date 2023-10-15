@@ -13,7 +13,7 @@ const NavBar = () => {
             // <BrowserRouter>
                 <Route path="/" element={<Root />}>
                     <Route index element={<Instituto />} />
-                    <Route path ="test" element={<PesquisadorPage />}/>
+                    <Route path ="pesquisador" element={<PesquisadorPage />}/>
                 </Route>
             // </BrowserRouter>
         )
@@ -60,7 +60,7 @@ const Root = () => {
                          <Link to="/">instituto</Link>
                      </li>
                      <li>
-                        <Link to="test">test</Link>
+                        <Link to="pesquisador">pesquisador</Link>
                      </li>
                  </ul>
              </nav>
