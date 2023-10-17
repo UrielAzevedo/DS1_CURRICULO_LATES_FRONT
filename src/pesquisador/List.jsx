@@ -31,7 +31,7 @@ const List = ({ result, setQueried, queried }) => {
 
       //getting researcher name
 
-      const pesquisador = pesquisadores.find(p => p.idXml == toAddId)
+      const pesquisador = pesquisadoresObras.find(p => p.idXml == toAddId)
 
       if (pesquisador === undefined) return
 
@@ -39,13 +39,25 @@ const List = ({ result, setQueried, queried }) => {
 
       const response = await fetch(`http://localhost:8080/api/v1/institutos/institutoNome?nome=${toAddInstituto}`)
 
-      const data = await response.json()
+      const instituto = await response.json()
 
-      if(data.length == 0) return
+      if(instituto.length == 0) return
 
       console.log(pesquisadoresObras[0]['artigos'])
 
+      console.log(pesquisador)
 
+      pesquisador['artigos'].forEach(artigo => {
+
+        console.log(artigo['titulo'])
+        console.log(artigo['ano'])
+        console.log(artigo['status'])
+        fetch(`http://localhost:8080/api/v1/obras/postObra?titulo=${artigo['titulo']}&ano=${artigo['ano']}&status[${artigo['status']}]`,       
+        {
+          method: "POST",
+        })
+
+      });
 
       // const data = await response.json()
       // console.log(data)
