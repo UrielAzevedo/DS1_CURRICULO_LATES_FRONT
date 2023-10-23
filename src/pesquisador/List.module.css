@@ -157,6 +157,10 @@ h2 {
 }
 
 .actionBtns > * {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-inline: 10px;
   width: 60px;
   height: 30px;
@@ -214,4 +218,12 @@ h2 {
 
 .pagControllers > *:active {
     background-color: rgba(109,128,0,0.5);
+}
+
+.pesquisador_field{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 230px;
 }

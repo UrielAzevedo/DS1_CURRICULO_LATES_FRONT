@@ -19,33 +19,84 @@ const Main = (props) => {
   
     const search = async () => {
       let url = ""
+      var institutosNome
+      var pesquisadoresReturn = []
       
       switch (field) {
 
         case "Nome":
-          url = `http://localhost:8080/api/v1/institutos/pesquisadoresNome?nome=${searchItem}`
+          url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorNome?nome=${searchItem}`
         break
           
-        case "Email":
-            url = `http://localhost:8080/api/v1/institutos/pesquisadoresEmail?email=${searchItem}`
+        case "E-mail":
+            console.log("here")
+            url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorEmail?email=${searchItem}`
         break
     
         case "Instituto":
-            url = `http://localhost:8080/api/v1/institutos/pesquisadoresInstituto?instituto=${searchItem}`
+            // url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=${searchItem}`
+
+
+            const institutoResponse = await fetch(`http://localhost:8080/api/v1/institutos/institutoNome?nome=${searchItem}`)
+            institutosNome = await institutoResponse.json()
+
+            console.log(institutosNome)
+
+            // console.log(instituto[0]['id'])
+
+            // url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=`
+            // url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=${instituto[0]['id']}`
+
         break
             
         default:
-        url = `http://localhost:8080/api/v1/pesquisadoresTodos`
+        url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorTodos?word=${searchItem}`
+
+        }
+
+        if(institutosNome !== undefined) {
+
+          institutosNome.forEach( async (instituto, index) => {
+
+            // console.log(instituto.id)
+            // console.log(institutosNome)
+
+            const response = await fetch(`http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=${instituto.id}`)
+            const pesquisador = await response.json()
+
+            pesquisadoresReturn.push(pesquisador[0])
+
+          })
+
+          const responseInstitutos = await fetch('http://localhost:8080/api/v1/institutos')
+          const institutos = await responseInstitutos.json()
+
+          console.log(pesquisadoresReturn)
+
+          props.setResult(pesquisadoresReturn)
+          props.setInstitutos(institutos)
+
+        } else {
+
+          // console.log(url)
+          // const institutos = await fetch('http://localhost:8080/api/v1/institutos/')
+  
+          const responseInstitutos = await fetch('http://localhost:8080/api/v1/institutos')
+          const institutos = await responseInstitutos.json()
+              
+          const response = await fetch(url)
+          const pesquisadores = await response.json()
+          // console.log(pesquisadores)
+          console.log(pesquisadores)
+          console.log(url)
+
+          props.setResult(pesquisadores)
+          props.setInstitutos(institutos)
 
         }
             
-        console.log(url)
-            
-        const response = await fetch(url)
-        const institutos = await response.json()
-        console.log(institutos)
-        props.setResult(institutos)
-    
+
+        
     }
       useEffect(() => {
         search()
@@ -95,6 +146,7 @@ const Main = (props) => {
           </button>
         </div>
       </>
+
 
     )
 }

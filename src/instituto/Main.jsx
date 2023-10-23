@@ -24,20 +24,20 @@ const Main = (props) => {
         url = `http://localhost:8080/api/v1/institutos/institutoNome?nome=${searchItem}`
         break
         
-        case "Acronimo":
-          url = `http://localhost:8080/api/v1/institutos/institutoAcronimo?acronimo=${searchItem}`
-          break
+      case "Acronimo":
+        url = `http://localhost:8080/api/v1/institutos/institutoAcronimo?acronimo=${searchItem}`
+        break
+        
+      default:
+        url = `http://localhost:8080/api/v1/institutos/institutoTodos?word=${searchItem}`
+    }
           
-          default:
-            url = `http://localhost:8080/api/v1/institutos/institutoTodos?word=${searchItem}`
-          }
+    console.log(url)
           
-          console.log(url)
-          
-          const response = await fetch(url)
-      const institutos = await response.json()
-      console.log(institutos)
-      props.setResult(institutos)
+    const response = await fetch(url)
+    const institutos = await response.json()
+    console.log(institutos)
+    props.setResult(institutos)
   
   }
     useEffect(() => {
