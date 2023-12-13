@@ -1,6 +1,7 @@
 import { useState, useRef } from "react"
 import styles from "./List.module.css"
-import pesquisadores from './pesquisadores.json'
+// import pesquisadores from './pesquisadores.json'
+import coAutoresObras from "./coAutores2.json"
 import pesquisadoresObras from './pesquisador_obras.json'
 
 const List = ({ result, institutos, setQueried, queried }) => {
@@ -27,10 +28,13 @@ const List = ({ result, institutos, setQueried, queried }) => {
       //getting researcher name
 
       const pesquisador = pesquisadoresObras.find(p => p.idXml == toAddId)
+      const coAutoresObra = coAutoresObras.filter(coAutor => coAutor.idPesquisador == pesquisador.idXml)
 
       if (pesquisador === undefined) return
 
       //check if valid institute
+
+      console.log(toAddInstituto)
 
       const response = await fetch(`http://localhost:8080/api/v1/institutos/institutoNome?nome=${toAddInstituto}`)
 
@@ -38,14 +42,22 @@ const List = ({ result, institutos, setQueried, queried }) => {
 
       if(instituto.length == 0) return
       
-      pesquisador['artigos'].forEach(artigo => {
+      pesquisador['artigos'].forEach (artigo => {
         
-        fetch(`http://localhost:8080/api/v1/obras/postObra?titulo=${artigo['titulo']}&ano=${artigo['ano']}&status[${artigo['status']}]`,       
+        fetch(`http://localhost:8080/api/v1/obras/postObra?titulo=${artigo['titulo']}&ano=${artigo['ano']}&tipo=${artigo['tipo']}`,       
         {
           method: "POST",
         })
         
       });
+
+      coAutoresObra.forEach (coAutor => {
+        console.log(coAutor.ano)
+        // const obra = await fetch(`http://localhost:8080/api/v1/obras/`)
+        fetch(`http://localhost:8080/api/v1/coAutores/post?tituloProducao=${coAutor.tituloProducao}&tipoProducao=${coAutor.tipoProducao}&idXmlPesquisador=${coAutor.idPesquisador}&coAutor=${coAutor.coAutor}&ano=${coAutor.ano}`, {
+          method: 'POST',
+        })
+      })
       
       fetch(`http://localhost:8080/api/v1/pesquisadores/post?idXml=${pesquisador['idXml']}&nome=${pesquisador['nome']}&idInstituto=${instituto[0]['id']}`,       
       {
@@ -60,11 +72,7 @@ const List = ({ result, institutos, setQueried, queried }) => {
 
       const instituto = await response.json()
 
-      // console.log
-
       if(instituto.length == 0) return
-
-      console.log(`http://localhost:8080/api/v1/pesquisadores/update?nome=${toUpdateNome}&instituto=${instituto[0]['id']}&email=${toUpdateEmail}`)
 
       fetch(
         `http://localhost:8080/api/v1/pesquisadores/update?nome=${toUpdateNome}&instituto=${instituto[0]['id']}&email=${toUpdateEmail}`,
@@ -72,13 +80,13 @@ const List = ({ result, institutos, setQueried, queried }) => {
           method: "PUT",
         }
       )
-      // .then(response => console.log(response))
       .then(() => changeQueried())
     }
   
     const handleDeleteElement = (e) => {
 
       const pesquisador = pesquisadoresObras.find(p => p.nome == e.innerText)
+      const coAutoresObra = coAutoresObras.filter(coAutor => coAutor.idPesquisador == pesquisador.idXml)
 
       if (pesquisador === undefined) return
 
@@ -89,6 +97,13 @@ const List = ({ result, institutos, setQueried, queried }) => {
           method: "DELETE",
         })
 
+      })
+
+      coAutoresObras.forEach(coAutor => {
+        fetch(`http://localhost:8080/api/v1/coAutores/deleteIdXml?idXml=${coAutor.idPesquisador}`,
+        {
+          method: "DELETE",
+        })
       })
 
       fetch(`http://localhost:8080/api/v1/pesquisadores/delete?idXml=${pesquisador['idXml']}`,
@@ -206,7 +221,6 @@ const List = ({ result, institutos, setQueried, queried }) => {
             result.map((e, i) => {
               
               const instituto = institutos.find(inst => inst['id'] == e['idinstituto'])
-              // console.log(e)
               return (
                 <div key={`list${i}`} className={styles.list_line}>
                   <span

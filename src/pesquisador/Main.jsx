@@ -29,7 +29,6 @@ const Main = (props) => {
         break
           
         case "E-mail":
-            console.log("here")
             url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorEmail?email=${searchItem}`
         break
     
@@ -39,10 +38,6 @@ const Main = (props) => {
 
             const institutoResponse = await fetch(`http://localhost:8080/api/v1/institutos/institutoNome?nome=${searchItem}`)
             institutosNome = await institutoResponse.json()
-
-            console.log(institutosNome)
-
-            // console.log(instituto[0]['id'])
 
             // url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=`
             // url = `http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=${instituto[0]['id']}`
@@ -58,9 +53,6 @@ const Main = (props) => {
 
           institutosNome.forEach( async (instituto, index) => {
 
-            // console.log(instituto.id)
-            // console.log(institutosNome)
-
             const response = await fetch(`http://localhost:8080/api/v1/pesquisadores/pesquisadorInstituto?instituto=${instituto.id}`)
             const pesquisador = await response.json()
 
@@ -71,14 +63,10 @@ const Main = (props) => {
           const responseInstitutos = await fetch('http://localhost:8080/api/v1/institutos')
           const institutos = await responseInstitutos.json()
 
-          console.log(pesquisadoresReturn)
-
           props.setResult(pesquisadoresReturn)
           props.setInstitutos(institutos)
 
         } else {
-
-          // console.log(url)
           // const institutos = await fetch('http://localhost:8080/api/v1/institutos/')
   
           const responseInstitutos = await fetch('http://localhost:8080/api/v1/institutos')
@@ -86,9 +74,6 @@ const Main = (props) => {
               
           const response = await fetch(url)
           const pesquisadores = await response.json()
-          // console.log(pesquisadores)
-          console.log(pesquisadores)
-          console.log(url)
 
           props.setResult(pesquisadores)
           props.setInstitutos(institutos)

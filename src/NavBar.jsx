@@ -5,6 +5,7 @@ import { RouterProvider, Route, Outlet, BrowserRouter, createBrowserRouter, crea
 import styles from './NavBar.module.css'
 // import Test from './Test';
 import PesquisadorPage from './pesquisador/PesquisadorPage'
+import ObrasPage from "./obrasPage/ObrasPage"
 
 const NavBar = () => {
 
@@ -14,6 +15,7 @@ const NavBar = () => {
                 <Route path="/" element={<Root />}>
                     <Route index element={<Instituto />} />
                     <Route path ="pesquisador" element={<PesquisadorPage />}/>
+                    <Route path ="obras" element={<ObrasPage />}/>
                 </Route>
             // </BrowserRouter>
         )
@@ -61,6 +63,9 @@ const Root = () => {
                      </li>
                      <li>
                         <Link to="pesquisador">pesquisador</Link>
+                     </li>
+                     <li>
+                        <Link to="obras">obras</Link>
                      </li>
                  </ul>
              </nav>
