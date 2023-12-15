@@ -12,12 +12,14 @@ const App = () => {
   // const [queried, setQueried] = useState(false)
 
   return (
-    <React.StrictMode>
+      <>
+    {/* <React.StrictMode> */}
       <NavBar />
       {/* <Main setResult={setResult} queried={queried}/>
       <List result={result} setQueried={setQueried} queried={queried}/> */}
       {/* <PesquisadorPage/> */}
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
+      </>
   );
 }
 

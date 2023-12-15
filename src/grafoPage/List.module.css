@@ -1,0 +1,17 @@
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    color: white;
+}
+
+.graphTable > tr > th {
+    padding-inline: 40px;
+
+}
+
+.graphTable input {
+    color: white;
+}

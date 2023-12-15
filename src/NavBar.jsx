@@ -6,6 +6,8 @@ import styles from './NavBar.module.css'
 // import Test from './Test';
 import PesquisadorPage from './pesquisador/PesquisadorPage'
 import ObrasPage from "./obrasPage/ObrasPage"
+import GrafoPage from "./grafoPage/GrafoPage"
+import FrontPage from "./frontPage/FrontPage"
 
 const NavBar = () => {
 
@@ -16,6 +18,8 @@ const NavBar = () => {
                     <Route index element={<Instituto />} />
                     <Route path ="pesquisador" element={<PesquisadorPage />}/>
                     <Route path ="obras" element={<ObrasPage />}/>
+                    <Route path ="grafo" element={<GrafoPage />}/>
+                    <Route path ="front" element={<FrontPage />}/>
                 </Route>
             // </BrowserRouter>
         )
@@ -66,6 +70,12 @@ const Root = () => {
                      </li>
                      <li>
                         <Link to="obras">obras</Link>
+                     </li>
+                     <li>
+                        <Link to="grafo">grafo</Link>
+                     </li>
+                     <li>
+                        <Link to="front">front</Link>
                      </li>
                  </ul>
              </nav>

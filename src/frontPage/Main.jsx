@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 
 import styles from "./Main.module.css"
 import pesquisadoresJson from "./pesquisadores.json"
+import pesquisadoresObrasJson from "./pesquisador_obras.json"
 
 const Main = ({setResult}) => {
   const [institutos, setInstitutos] = useState([])
@@ -9,22 +10,47 @@ const Main = ({setResult}) => {
   const [selectedPesquisadorId, setSelectedPesquisadorId] = useState(0)
   const [nomePesquisador, setNomePesquisador] = useState('a')
   const [startYear, setStartYear] = useState('')
+  const [tipoProducao, setTipoProducao] = useState('')
   const [endYear, setEndYear] = useState('')
+
+  function countOccurrences(arr, attributeName) {
+    const counts = {};
+  
+    arr.forEach(obj => {
+      const attributeValue = obj[attributeName];
+      counts[attributeValue] = (counts[attributeValue] || 0) + 1;
+    });
+  
+    const resultArray = Object.entries(counts).map(([attributeValue, occurrences]) => {
+      return {ano: attributeValue, ocorrencias: occurrences}
+    });
+  
+    return resultArray;
+  }
 
   const search = async () => {
 
-    console.log(nomePesquisador)
     // const nomePesquisador = document.getElementById('pesquisador').textContent
     const pesquisador = pesquisadoresJson.filter(pesquisadoresJson => pesquisadoresJson.nome === nomePesquisador)
     const idXmlPesquisador = pesquisador[0]['idXml']
-    const tipoProducao = document.getElementById('typeprod').value
     console.log(pesquisador)
-    const url = `http://localhost:8080/api/v1/coAutores/detalhamento?pesquisador=${idXmlPesquisador}&tipo=${tipoProducao}&anoInicio=${startYear}&anoFim=${endYear}`
+    console.log(tipoProducao)
+    console.log(idXmlPesquisador)
+    console.log(startYear)
+    console.log(endYear)
+    // const url = `http://localhost:8080/api/v1/coAutores/detalhamento?pesquisador=${idXmlPesquisador}&tipo=${tipoProducao}&anoInicio=${startYear}&anoFim=${endYear}`
 
+    const pesquisadorObras = pesquisadoresObrasJson.filter((pesquisador) => pesquisador['idXml'] == idXmlPesquisador)
+    const pesquisadorObrasTipo =  tipoProducao != 'todos' ? pesquisadorObras[0]['artigos'].filter((obra) => obra['tipo'] == tipoProducao) : pesquisadorObras[0]['artigos']
+    const obrasAno = pesquisadorObrasTipo.filter((obra) => obra['ano'] >= startYear && obra['ano'] >= startYear <= endYear)
+    console.log(pesquisadorObras)
+    console.log(obrasAno)
 
-    const response = await fetch(url)
-    const detalhamentoObras = await response.json()
-    setResult(detalhamentoObras)
+    const obrasAnoFilter = countOccurrences(obrasAno, 'ano')
+
+    console.log(obrasAnoFilter)
+    
+    setResult([])
     
   }
 
@@ -115,6 +141,7 @@ const Main = ({setResult}) => {
           <select
             name="typeprod"
             id="typeprod"
+            onChange={(e) => setTipoProducao(e.target.value)}
           >
             <option value="livro">Livro</option>
             <option value="artigo">Artigo</option>
